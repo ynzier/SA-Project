@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Yoga Studio Template">
+    <meta name="keywords" content="Yoga, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Local Directory | Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 4 DatePicker</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="container-fluid">
+            <div class="logo">
+                <a href="./index.html"><img src="img/logo_edit.png" alt=""></a>
+            </div>
+            <div class ="logo">
+                <a href ="#">                      </a>
+            </div>
+            <nav class="main-menu mobile-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active"><a href="claims.html">Claims</a></li>
+                    <li><a href="status.html">Status</a></li>
+                    <li><a href="policy.html">Policy</a></li>
+                    <li><a href="contact.html">About Us</a></li>
+                </ul>
+            </nav>
+            <div id="mobile-menu-wrap"></div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+    <!-- bg Section Begin -->
+    <section class="hero-section-claims set-bg" data-setbg="img/bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hero-text">
+                        <h1>Claims System</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- bg Section End -->
+
+    <!--------style-->
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+        
+        body {
+          background-color: #f1f1f1;
+        }
+        
+        #regForm {
+          background-color: #ffffff;
+          margin: 100px auto;
+          font-family: Raleway;
+          padding: 40px;
+          width: 70%;
+          min-width: 300px;
+        }
+        
+        h1 {
+          text-align: center;  
+        }
+        
+        input {
+          padding: 10px;
+          width: 100%;
+          font-size: 17px;
+          font-family: Raleway;
+          border: 1px solid #aaaaaa;
+        }
+        
+        /* Mark input boxes that gets an error on validation: */
+        input.invalid {
+          background-color: #ffdddd;
+        }
+        
+        /* Hide all steps by default: */
+        .tab {
+          display: none;
+        }
+        
+        button {
+          background-color: #4CAF50;
+          color: #ffffff;
+          border: none;
+          padding: 10px 20px;
+          font-size: 17px;
+          font-family: Raleway;
+          cursor: pointer;
+        }
+        
+        button:hover {
+          opacity: 0.8;
+        }
+        
+        #prevBtn {
+          background-color: none;
+        }
+        
+        /* Make circles that indicate the steps of the form: */
+        .step {
+          height: 15px;
+          width: 15px;
+          margin: 0 2px;
+          background-color: #bbbbbb;
+          border: none;  
+          border-radius: 50%;
+          display: inline-block;
+          opacity: 0.5;
+        }
+        
+        .step.active {
+          opacity: 1;
+        }
+        
+        /* Mark the steps that are finished and valid: */
+        .step.finish {
+          background-color: #4CAF50;
+        }
+        </style>
+    <!--------style End-->
+
+    <!--------js-->
+    <script>
+        var currentTab = 0; // Current tab is set to be the first tab (0)
+        showTab(currentTab); // Display the current tab
+        
+        function showTab(n) {
+          // This function will display the specified tab of the form...
+          var x = document.getElementsByClassName("tab");
+          x[n].style.display = "block";
+          //... and fix the Previous/Next buttons:
+          if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+          } else {
+            document.getElementById("prevBtn").style.display = "inline";
+          }
+          if (n == (x.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "Submit";
+          } else {
+            document.getElementById("nextBtn").innerHTML = "Next";
+          }
+          //... and run a function that will display the correct step indicator:
+          fixStepIndicator(n)
+        }
+        
+        function nextPrev(n) {
+          // This function will figure out which tab to display
+          var x = document.getElementsByClassName("tap");
+          // Exit the function if any field in the current tab is invalid:
+          if (n == 1 && !validateForm()) return false;  /************change here from false********/
+          // Hide the current tab:
+          x[currentTab].style.display = "none";
+          // Increase or decrease the current tab by 1:
+          currentTab = currentTab + n;
+          // if you have reached the end of the form...
+          if (currentTab >= x.length) {
+            // ... the form gets submitted:
+            document.getElementById("regForm").submit();
+            return false;
+          }
+          // Otherwise, display the correct tab:
+          showTab(currentTab);
+        }
+        
+        function validateForm() {
+          // This function deals with validation of the form fields
+          var x, y, i, valid = true;
+          x = document.getElementsByClassName("tap");
+          y = x[currentTab].getElementsByTagName("input");
+          // A loop that checks every input field in the current tab:
+          for (i = 0; i < y.length; i++) {
+            // If a field is empty...
+            if (y[i].value == "") {
+              // add an "invalid" class to the field:
+              y[i].className += " invalid";
+              // and set the current valid status to false
+              valid = false;
+            }
+          }
+          // If the valid status is true, mark the step as finished and valid:
+          if (valid) {
+            document.getElementsByClassName("step")[currentTab].className += " finish";
+          }
+          return valid; // return the valid status
+        }
+        
+        function fixStepIndicator(n) {
+          // This function removes the "active" class of all steps...
+          var i, x = document.getElementsByClassName("step");
+          for (i = 0; i < x.length; i++) {
+            x[i].className = x[i].className.replace(" active", "");
+          }
+          //... and adds the "active" class on the current step:
+          x[n].className += " active";
+        }
+        </script>
+    <!--------js End-->
+
+    <!-- Contact Section Begin -->
+    <form id="regForm" action="">
+
+      <div class="col-lg-12 text-lg-right">
+        <h5>fill every filed that have asterisk</h5>
+        <samll>กรอกทุกจุดที่มีดอกจัน</small>
+    </div>
+      
+      <!-- One "tab" for each step in the form: -->
+      <div class="tab">
+      <div class="col-lg-12 form-group">
+        <label for="validationCustomCusCode">Customer code (รหัสลูกค้า) <i class="fa fa-asterisk" aria-hidden="true"></i></label>
+        <div class ="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend">@</i></span>
+              </div>
+            <input type="text" class = "form-control" id="validationCustomCusCode" placeholder="" style="text-transform: uppercase" required>
+            <div class="invalid-feedback">
+                Please input customer code.
+            </div>
+        </div>
+        <small id="helpId" class="text-muted">
+            <i class="fas fa-engine-warning">
+                do not fill @ - ไม่ต้องเติม @
+            </i>
+            </small>
+    </div>
+    <div class="col-lg-12  form-group">
+        <label for="validationCustomEngName">Name - Surname (ชื่อ-นามสกุล) <i class="fa fa-asterisk" aria-hidden="true"></i></label></label>
+        <div class ="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
+              </div>
+            <input type="text" class = "form-control" id="validationCustomEngName" placeholder="" style="text-transform: uppercase" required>
+            <div class="invalid-feedback">
+                Please input your name.
+            </div>
+        </div>
+        <small id="helpId" class="text-muted">
+            <i class="fas fa-engine-warning">
+                name before surname and do not fill name title- ชื่อก่อนนามสกุลไม่ต้องเติมคำนำหน้าชื่อ
+            </i>
+            </small>
+          
+    </div>
+        <div class="col-lg-12 form-group">
+            <label for="validationCustomTel">Contact number (เบอร์โทรที่ติดต่อได้) <i class="fa fa-asterisk" aria-hidden="true"></i></label></label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend"><i class="fa fa-tablet" aria-hidden="true"></i></span>
+              </div>
+              <input type="number" class="form-control" id="validationCustomTel" placeholder="xxxxxxxxxx" required>
+              <div class="invalid-feedback">
+                Please input number.
+              </div>
+            </div>
+          <small id="helpId" class="text-muted">
+            <i class="fas fa-engine-warning">
+                do not use hyphen - พิมพ์ติดกันทั้งบรรทัดไม่ต้องเติมยัติภังค์ (-)
+            </i>
+            </small>
+        </div>
+    <div class="col-lg-12">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-address-card" aria-hidden="true"></i><label for="validationCustomUsername">  present address (ที่อยู่ที่สามารถติดต่อได้) <i class="fa fa-asterisk" aria-hidden="true"></i></label></label></span>
+         </div>
+         <input type="text" class="form-control" id="validationCustomAdd" placeholder="" required>
+         <div class="invalid-feedback">
+           Please input your address.
+         </div>
+         <small id="helpId" class="text-muted">
+            <i class="fas fa-engine-warning">
+                do not forget to fill postal code after address - ใส่รหัสไปรษณีย์ด้วย
+            </i>
+            </small>
+          </div>
+          <!--เพิ่มเติมม-เป็นช่องข้อมูลที่แก้ไขได้-->
+      </div>
+      
+      <div class="tab">
+        <div class="col-lg-12">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-shopping-cart    "></i><label for="validationCustomDate">  Bought date (วันที่ซื้อสินค้า) <i class="fa fa-asterisk" aria-hidden="true"></i></label></label></span>
+         </div>
+          <input id="datepicker" width="276" />
+        <script>
+            $('#datepicker').datepicker({
+                uiLibrary: 'bootstrap4'
+            });
+        </script>
+        </div>
+        <div class ="col-lg-12">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-desktop" aria-hidden="true"></i><label for="validationCustomModel">  Model (รุ่น) <i class="fa fa-asterisk" aria-hidden="true"></i></label></label></span>
+         </div>
+          <input type="text" class="form-control" id="validationCustomModel" placeholder="" required>
+
+        </div>
+        <div class ="col-lg-12">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-eyedropper" aria-hidden="true"></i><label for="validationCustomColor">  Color (สี) <i class="fa fa-asterisk" aria-hidden="true"></i></label></label></span>
+         </div>
+          <input type="text" class="form-control" id="validationCustomColor" placeholder="" required>
+        </div>
+        <div class ="col-lg-12">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><span class="glyphicon glyphicon-remove"></span><label for="validationCustomColor">  Out of order (อาการเสีย) <i class="fa fa-asterisk" aria-hidden="true"></i></label></label></span>
+         </div>
+          <input type="text" class="form-control" id="validationCustomColor" placeholder="" required>
+        </div>
+        <!--เพิ่มเติมม--หน้านี้ให้กรอกแค่วันที่กับอาการเสียเพิ่ม drop down ของเลขใบเคลมที่ดึงมาจาก db -->
+      </div>
+      
+      <div class="tab">Birthday:
+        <!--เพิ่มเติมม---ใช้ข้อมูลทั้งหมดจาก db ใส่กรอบแบบ disable-->
+      </div>
+      
+      <div class="tab">Login Info:
+        <!--เพิ่มเติมม--popup ยืนยันว่าได้รับข้อมูลแล้ว-->
+      </div>
+      
+      <div style="overflow:auto;">
+        <div style="float:right;">
+          <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+          <button type="button" id="nextBtn"  onclick="nextPrev(1)">Next</button>
+          <!--เพิ่มเติมม--เชื่อม submit กับไปหน้าจอหลัก ถ้าเป็นไปได้อยากให้ถ้าไม่กรอกข้อมูลตรงไหนจะเด้งกลับไปตรงนั้น-->
+          
+        </div>
+      </div>
+      
+      <!-- Circles which indicates the steps of the form: -->
+      <div style="text-align:center;margin-top:40px;">
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+      </div>
+      
+      </form>
+    <!-- Contact Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form action="#" class="newslatter-form">
+                        <input type="text" placeholder="Your email address">
+                        <button type="submit">Subscribe to our Newsletter</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h4>Usefull Links</h4>
+                        <ul>
+                            <li>About us</li>
+                            <li>Testimonials</li>
+                            <li>How it works</li>
+                            <li>Create an account</li>
+                            <li>Our Services</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h4>Categories</h4>
+                        <ul>
+                            <li>Hotels</li>
+                            <li>Restaurant</li>
+                            <li>Spa & resorts</li>
+                            <li>Concert & Events</li>
+                            <li>Bars & Pubs</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h4>Usefull Links</h4>
+                        <ul>
+                            <li>About us</li>
+                            <li>Testimonials</li>
+                            <li>How it works</li>
+                            <li>Create an account</li>
+                            <li>Our Services</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h4>From the Blog</h4>
+                        <div class="single-blog">
+                            <div class="blog-pic">
+                                <img src="img/f-blog-1.jpg" alt="">
+                            </div>
+                            <div class="blog-text">
+                                <h6>10 Best clubs in town</h6>
+                                <span>March 27, 2019</span>
+                            </div>
+                        </div>
+                        <div class="single-blog">
+                            <div class="blog-pic">
+                                <img src="img/f-blog-2.jpg" alt="">
+                            </div>
+                            <div class="blog-text">
+                                <h6>10 Best clubs in town</h6>
+                                <span>March 27, 2019</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row footer-bottom">
+                <div class="col-lg-5 order-2 order-lg-1">
+                    <div class="copyright"><p class="text-white">
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p></div>
+                </div>
+                <div class="col-lg-7 text-center text-lg-right order-1 order-lg-2">
+                    <div class="footer-menu">
+                        <a href="#">Home</a>
+                        <a href="#">Explore</a>
+                        <a href="#">More Cities</a>
+                        <a href="#">News</a>
+                        <a href="#">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/step-form.js"></script>
+</body>
+
+</html>
